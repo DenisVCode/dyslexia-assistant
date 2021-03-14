@@ -67,15 +67,23 @@ const gpt = async (
       throw new Error("Missing GPT3 reply");
     }
 
-    const { text } = result;
-    createPrompt(text);
-    const gptText = text.split(template.end)[1].replace(/\n/g, "").trim();
+    const gptTextOutput = result.text;
+    Logger.log(gptTextOutput);
+    //createPrompt((gptTextOutput));
+  
+    const gptText = gptTextOutput
+      .split(template.end)[1]
+      .replace(/\n/g, "")
+      .trim();
+    
     const body = doc.getBody();
     const idx = body.getChildIndex(selection.lastElem.getParent());
-    const p = body.insertParagraph(idx + 1, "\n" + gptText);
+    const p = body.insertParagraph(idx + 1, "\n" + gptText + "\n");
 
     p.setAttributes({
-      [DocumentApp.Attribute.FOREGROUND_COLOR]: "#698EE5",
+      [DocumentApp.Attribute.FOREGROUND_COLOR]: "#5465FF",
+      [DocumentApp.Attribute.FONT_FAMILY]: "Roboto Mono",
+    
     });
   } catch (error) {
     throw new Error(error);

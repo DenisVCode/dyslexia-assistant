@@ -13,7 +13,7 @@ const onOpen = () => {
 const dyslexiaText = () => {
   const selection = getSelectedText();
   const template = DIS_ENG;
-  gpt(getSelectedText(), template, {
+  gpt(selection, template, {
     prompt: template.text.replace("{{INPUT}}", selection.text),
     ...template.req,
   });
@@ -22,7 +22,7 @@ const dyslexiaText = () => {
 const clearerText = () => {
   const selection = getSelectedText();
   const template = CLEARER_ENG;
-  gpt(getSelectedText(), template, {
+  gpt(selection, template, {
     prompt: template.text.replace("{{INPUT}}", selection.text),
     ...template.req,
   });
@@ -73,7 +73,7 @@ const getSelectedText = () => {
   }
 
   return {
-    text: total,
+    text: total.trim(),
     lastElem: selectedElements[selectedElements.length - 1].getElement(),
   };
 };
